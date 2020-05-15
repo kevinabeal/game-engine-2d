@@ -11,8 +11,8 @@ export interface IGameShape {
   moveToLayer(layer: number): IGameShape
   square(w: Pixels, h?: Pixels): IGameShape
   circle(width: Pixels): IGameShape
-  stroke(width: Pixels, style: DrawProps["strokeStyle"]): IGameShape
-  fill(style: DrawProps["fillStyle"]): IGameShape
+  stroke(width: Pixels, style: Shape["strokeStyle"]): IGameShape
+  fill(style: Shape["fillStyle"]): IGameShape
 
   isPointOverlapping(coord: ICoord): boolean
   isPointOverlapping(x: Pixels, y: Pixels): boolean
@@ -31,11 +31,11 @@ export interface IGameShape {
     h?: Pixels
   ): IGameShape
 
-  get(): Readonly<DrawProps>
-  get<K extends keyof DrawProps>(key: K): Readonly<DrawProps[K]>
+  get(): Readonly<Shape>
+  get<K extends keyof Shape>(key: K): Readonly<Shape[K]>
 
-  edit<K extends keyof DrawProps>(key: K, value: DrawProps[K]): IGameShape
-  edit(opts: Partial<DrawProps>): IGameShape
+  edit<K extends keyof Shape>(key: K, value: Shape[K]): IGameShape
+  edit(opts: Partial<Shape>): IGameShape
 
   clone(): IGameShape
 
@@ -45,8 +45,8 @@ export interface IGameShape {
 // OBJECT FACTORY ------------]
 
 export const o = createGameShape()
-export function createGameShape(opts: Partial<DrawProps> = {}): IGameShape {
-  const props: DrawProps = {
+export function createGameShape(opts: Partial<Shape> = {}): IGameShape {
+  const props: Shape = {
     ...DEFAULT_PROPS,
     ...opts,
   }
@@ -182,7 +182,7 @@ export function createGameShape(opts: Partial<DrawProps> = {}): IGameShape {
     return beforeEndX && afterStartX && beforeEndY && afterStartY
   }
 
-  function get<K extends keyof DrawProps>(key?: K): DrawProps | DrawProps[K] {
+  function get<K extends keyof Shape>(key?: K): Shape | Shape[K] {
     return key ? props[key] : props
   }
 
@@ -199,7 +199,7 @@ export function createGameShape(opts: Partial<DrawProps> = {}): IGameShape {
 
   // SHAPE MUTATION ------------]
 
-  function fill(style: DrawProps["fillStyle"]) {
+  function fill(style: Shape["fillStyle"]) {
     props.fillStyle = style
     props.mutations.push(GameMutations.FILL)
     return gameShape
@@ -220,7 +220,7 @@ export function createGameShape(opts: Partial<DrawProps> = {}): IGameShape {
 
   function stroke(
     width: Pixels = 1,
-    style: DrawProps["strokeStyle"] = props.strokeStyle
+    style: Shape["strokeStyle"] = props.strokeStyle
   ) {
     props.lineWidth = width
     props.strokeStyle = style
@@ -234,9 +234,9 @@ export function createGameShape(opts: Partial<DrawProps> = {}): IGameShape {
     return gameShape
   }
 
-  function edit<K extends keyof DrawProps>(
-    key: K | Partial<DrawProps>,
-    value?: DrawProps[K]
+  function edit<K extends keyof Shape>(
+    key: K | Partial<Shape>,
+    value?: Shape[K]
   ): IGameShape {
     props.mutations.push(GameMutations.EDIT)
     if (typeof key === "string" && typeof value !== "undefined") {
@@ -347,7 +347,7 @@ type SpecialDrawProps = {
   mutations: GameMutations[]
 }
 
-type DrawProps = SpecialDrawProps & CanvasProps
+export type Shape = SpecialDrawProps & CanvasProps
 
 export enum GameMutations {
   MOVE = "move",

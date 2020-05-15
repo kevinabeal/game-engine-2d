@@ -3,7 +3,7 @@ import { filter, map, mapTo, shareReplay, switchMap } from "rxjs/operators"
 import { frame$ } from "./game-loop"
 import { IGameShape } from "./objects/game-shape"
 import { c } from "./objects/geometry"
-import { getShapeAtCoord } from "./state/world-state"
+import { getShapeAtCoord } from "./state/scene-node"
 
 export enum Keys {
   ArrowDown = "ArrowDown",

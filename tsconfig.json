@@ -1,14 +1,17 @@
 {
-  "compilerOptions": {
-    "module": "ES2020",
-    "noImplicitAny": true,
-    "removeComments": true,
-    "preserveConstEnums": true,
-    "strict": true,
-    "outDir": "dist",
-    "sourceMap": true,
-    "lib": ["ES2020", "DOM"]
-  },
-  "include": ["src/**/*"],
-  "exclude": ["node_modules", "**/*.spec.ts"]
+    "compilerOptions": {
+        "noImplicitAny": true,
+        "removeComments": true,
+        "preserveConstEnums": true,
+        "moduleResolution": "node",
+        "strict": true,
+        "outDir": "dist",
+        "sourceMap": true,
+        "lib": ["ES2020", "DOM"],
+        "experimentalDecorators": true,
+        "emitDecoratorMetadata": true,
+        "target": "ES2015"
+    },
+    "include": ["src/**/*"],
+    "exclude": ["node_modules", "**/*.spec.ts"]
 }

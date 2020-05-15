@@ -1,7 +1,7 @@
 import { startWith, shareReplay, filter } from "rxjs/operators"
 import { fromEvent, interval } from "rxjs"
 import { animationFrame } from "rxjs/internal/scheduler/animationFrame"
-import { worldState } from "./state/world-state"
+import { initialState } from "./state/store"
 import { IGameShape } from "./objects/game-shape"
 import { memoize } from "./util/memoize"
 
@@ -32,7 +32,7 @@ const orderedByLayer = memoize(_objectsOrderedByLayer)
 export function startLoop() {
   frame$.subscribe(function () {
     context.clearRect(0, 0, stage.width, stage.height)
-    const orderedObjects = orderedByLayer(worldState.shapes)
+    const orderedObjects = orderedByLayer(initialState.shapes)
     orderedObjects.forEach(function (obj) {
       obj.draw(context)
     })

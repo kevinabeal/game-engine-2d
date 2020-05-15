@@ -1,11 +1,11 @@
-import { addObject } from "../state/object-state"
+import { addSceneNode } from "../state/scene-node"
 import { createGameShape } from "./game-shape"
 import { randomHex } from "../util/func"
 import { control$, Keys } from "../controls"
 import { map, filter } from "rxjs/operators"
 import { merge } from "rxjs"
 
-const redSquare = addObject(
+const redSquare = addSceneNode(
   createGameShape().square(100).fill("red").position(120, 120).addHitbox(),
   ["player"]
 )
